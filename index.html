@@ -19,7 +19,7 @@
                 </div>
                 <div class="cell medium-6 columns">
                     <label>Aporte Mensal:<br>
-                        <input class="aporte user-success" type="number" placeholder="Se não, vazio">
+                        <input class="aporte user-success" type="number" placeholder="Senão, vazio">
                     </label>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="cell medium-6 columns">
                         <label>Ou taxa anual<br>
-                            <input class="taxaano" type="number" placeholder="Se não, vazio">
+                            <input class="taxaAno" type="number" placeholder="Senão, vazio">
                         </label>
                     </div>
                 </div>
@@ -48,18 +48,18 @@
                     </div>
                     <div class="cell large-4 columns">
                         <label>Ou em anos<br>
-                            <input class="prazoano dataput" type="number" placeholder="Se não, vazio">
+                            <input class="prazoAno dataput" type="number" placeholder="Senão, vazio">
                         </label>
                     </div>
                     <div class="cell large-4 columns">
                         <label>Ou até data específica<br>
-                            <input class="atevencer dataput user-success" type="date" placeholder="Data do Vencimento">
+                            <input class="ateVencer dataput user-success" type="date" placeholder="Data do Vencimento">
                         </label>
                     </div>
                 </div>
             </fieldset>
             <div class="text-center row" style="margin-top: 10px;">
-                <a class="button simulaum" href="#">Cálculo</a>
+                <a class="button simulaUm" href="#">Cálculo</a>
             </div>
         </div>
     </form>
@@ -74,10 +74,10 @@
                         <th>Acumulado</th>
                     </tr>
                     <tr>
-                        <td>R$ <span class="apin">.</span></td>
-                        <td>R$ <span class="apout">.</span></td>
-                        <td>R$ <span class="apju">.</span></td>
-                        <td>R$ <span class="aptot">.</span></td>
+                        <td>R$ <span class="apIn">.</span></td>
+                        <td>R$ <span class="apOut">.</span></td>
+                        <td>R$ <span class="apJu">.</span></td>
+                        <td>R$ <span class="apTot">.</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -88,11 +88,15 @@
         </ul>
         <div class="tabs-content">
             <section id="panel2-1" class="content active">
-                <div><span class="label alert">Total Aplicado</span> <span class="label">Total Acumulado</span> <span
-                        class="label success">Juros acumulados</span></div>
+                <div>
+                    <span class="label alert">Total Aplicado</span>
+                    <span class="label">Total Acumulado</span>
+                    <span class="label success">Juros acumulados</span>
+                </div>
                 <!-- <div id="cresce-chart" class="oscharts" style="height: 400px;"></div> -->
             </section>
-            <section id="panel2-2" class="content">Dados parciais e acumulados:<p></p>
+            <section id="panel2-2" class="content">Dados parciais e acumulados:
+                <p></p>
                 <div id="printfinal"></div>
             </section>
         </div>
