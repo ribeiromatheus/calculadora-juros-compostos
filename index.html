@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <title>Calculadora Juros Compostos</title>
+</head>
+<body>
+    <form class="jcomp grid-x">
+        <div class="cell large-9 row themeform painel">
+            <h3 class="text-center avfont">Simulador de Juros Compostos</h3>
+            <div class="row grid-x adjust">
+                <div class="cell medium-6 columns">
+                    <label>Valor Inicial:<br>
+                        <input class="montante user-success" type="number" placeholder="Valor inicial">
+                    </label>
+                </div>
+                <div class="cell medium-6 columns">
+                    <label>Aporte Mensal:<br>
+                        <input class="aporte user-success" type="number" placeholder="Se não, vazio">
+                    </label>
+                </div>
+            </div>
+            <fieldset>
+                <legend>Taxa</legend>
+                <div class="grid-x row">
+                    <div class="cell medium-6 columns">
+                        <label>Mensal (padrão)<br>
+                            <input class="taxa user-success" type="number" placeholder="Taxa de juros">
+                        </label>
+                    </div>
+                    <div class="cell medium-6 columns">
+                        <label>Ou taxa anual<br>
+                            <input class="taxaano" type="number" placeholder="Se não, vazio">
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Prazo</legend>
+                <div class="grid-x row">
+                    <div class="cell large-4 columns">
+                        <label>Em meses (padrão)<br>
+                            <input class="prazo user-success" type="number" placeholder="Meses">
+                        </label>
+                    </div>
+                    <div class="cell large-4 columns">
+                        <label>Ou em anos<br>
+                            <input class="prazoano dataput" type="number" placeholder="Se não, vazio">
+                        </label>
+                    </div>
+                    <div class="cell large-4 columns">
+                        <label>Ou até data específica<br>
+                            <input class="atevencer dataput user-success" type="date" placeholder="Data do Vencimento">
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="text-center row" style="margin-top: 10px;">
+                <a class="button simulaum" href="#">Cálculo</a>
+            </div>
+        </div>
+    </form>
+    <div class="resultados" style="display: none;">
+        <div class="panel callout">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Aplicação inicial</th>
+                        <th>Soma Aplicações</th>
+                        <th>Juros totais</th>
+                        <th>Acumulado</th>
+                    </tr>
+                    <tr>
+                        <td>R$ <span class="apin">.</span></td>
+                        <td>R$ <span class="apout">.</span></td>
+                        <td>R$ <span class="apju">.</span></td>
+                        <td>R$ <span class="aptot">.</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ul class="tabs" data-tab="">
+            <li class="tab-title active"><a tabindex="0" href="#panel2-1">Gráfico</a></li>
+            <li class="tab-title"><a tabindex="0" href="#panel2-2">Dados</a></li>
+        </ul>
+        <div class="tabs-content">
+            <section id="panel2-1" class="content active">
+                <div><span class="label alert">Total Aplicado</span> <span class="label">Total Acumulado</span> <span
+                        class="label success">Juros acumulados</span></div>
+                <!-- <div id="cresce-chart" class="oscharts" style="height: 400px;"></div> -->
+            </section>
+            <section id="panel2-2" class="content">Dados parciais e acumulados:<p></p>
+                <div id="printfinal"></div>
+            </section>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
