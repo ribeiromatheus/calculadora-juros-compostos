@@ -51,8 +51,8 @@ $(".simulaUm").click(function ($) {
     var tempJuros = 0;
     acuPush = montante;
     /* formação da tabela */
-    acumulado = "<table><tr><th>Mês</th><th>Aportes</th><th>Juros no mês</th><th>Juros total</th><th>Acumulado</th></tr>";
-    acumulado += "<tr><td>0</td><td>" + Number(montante).praPessoa() + "</td><td>0</td><td>0</td><td>" + Number(montante).praPessoa() + "</td></tr>";
+    acumulado = '<table class="table table-bordered table-hover table-dark"><thead><tr><th>Mês</th><th>Aportes</th><th>Juros no mês</th><th>Juros total</th><th>Acumulado</th></thead></tr>';
+    acumulado += "<tbody><tr><td>0</td><td>" + Number(montante).praPessoa() + "</td><td>0</td><td>0</td><td>" + Number(montante).praPessoa() + "</td></tbody></tr>";
     for (var i = 1; i <= prazo; i++) {
         /* pega acumulado do mês passado e aplica juros */
         tempJuros = parseInt(acuPush * taxa * 100) / 100;
