@@ -9,3 +9,5 @@ body {
     border-radius: 5px;
     padding: 5%;
 }
+
+.resultados { display: none; }

@@ -17,11 +17,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <label class="control-label">Valor Inicial:</label>
-                    <input class="montante user-success form-control" type="number" placeholder="Valor inicial">
+                    <input class="montante form-control" type="number" placeholder="Valor inicial">
                 </div>
                 <div class="col-md-6">
                     <label class="control-label">Aporte Mensal:</label>
-                    <input class="aporte user-success form-control" type="number" placeholder="Senão, vazio">
+                    <input class="aporte form-control" type="number" placeholder="Senão, vazio">
                 </div>
             </div>
             <hr>
@@ -29,7 +29,7 @@
                 <legend>Taxa</legend>
                 <div class="col-md-6">
                     <label class="control-label">Mensal (padrão)</label>
-                    <input class="taxa user-success form-control" type="number" placeholder="Taxa de juros">
+                    <input class="taxa form-control" type="number" placeholder="Taxa de juros">
                 </div>
                 <div class="col-md-6">
                     <label class="control-label">Ou taxa anual</label>
@@ -41,7 +41,7 @@
                 <legend>Prazo</legend>
                 <div class="col-md-4">
                     <label class="control-label">Em meses (padrão)</label>
-                    <input class="prazo user-success form-control" type="number" placeholder="Meses">
+                    <input class="prazo form-control" type="number" placeholder="Meses">
                 </div>
                 <div class="col-md-4">
                     <label>Ou em anos</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-4">
                     <label>Ou até data específica</label>
-                    <input class="ateVencer dataput user-success form-control" type="date"
+                    <input class="ateVencer dataput form-control" type="date"
                         placeholder="Data do Vencimento">
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row resultados" style="display: none;">
+            <div class="row resultados">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-dark">
                         <thead>
@@ -84,7 +84,20 @@
                 <section>
                     <label class="control-label">Dados parciais e acumulados:</label>
                     <p></p>
-                    <div id="printfinal"></div>
+                    <div id="printfinal" class="table-responsive">
+                        <table class="table table-bordered table-hover table-dark">
+                            <thead>
+                                <tr>
+                                    <th>Mês</th>
+                                    <th>Aportes</th>
+                                    <th>Juros no mês</th>
+                                    <th>Juros total</th>
+                                    <th>Acumulado</th>
+                                </tr>                                    
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </main>
