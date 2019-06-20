@@ -10,17 +10,6 @@ $(document).on('change', '.dataput', function () {
         console.log(currentParse);
 
         let daysDiff = (compDateParse - currentParse) / (1000 * 60 * 60 * 24 * 30);
-        // A fórmula de resolução de juro simples é a seguinte:
-        // j = C. i. t
-
-        // Na qual:
-        // j = juros, C = capital, i = taxa, t = tempo.
-
-        // Já a fórmula para juros compostos é:
-
-        // onde S = montante, P = principal, i = taxa de juros e n = número de períodos que o principal P (capital inicial) foi aplicado.
-
-        // S = P (1 + i)^n
         $('.prazo').val(daysDiff.toFixed(2));
     } else if (prazoAno)
         $('.prazo').val((parseFloat(prazoAno) * 12).toFixed(2));
