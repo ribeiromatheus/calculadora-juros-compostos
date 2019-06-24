@@ -9,5 +9,11 @@ body {
     border-radius: 5px;
     padding: 5%;
 }
+.simulaUm {
+    height: 70px;
+    text-transform: uppercase;
+}
+
+h3.text-center { text-transform: uppercase; }
 
 .resultados { display: none; }

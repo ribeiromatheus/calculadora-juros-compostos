@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title>Calculadora Juros Compostos</title>
 </head>
+
 <body>
     <div class="container">
-        <main class="content">
+        <section class="content">
             <h3 class="text-center">Calculadora de Juros Compostos</h3>
             <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="control-label">Valor Inicial:</label>
-                    <input class="montante form-control" type="number" placeholder="Valor inicial">
+            <form onsubmit="return false">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label">Valor Inicial:</label>
+                        <input class="montante form-control" type="number" placeholder="Valor inicial">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Aporte Mensal:</label>
+                        <input class="aporte form-control" type="number" placeholder="Senão, vazio">
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="control-label">Aporte Mensal:</label>
-                    <input class="aporte form-control" type="number" placeholder="Senão, vazio">
+                <hr>
+                <div class="row">
+                    <legend>Taxa</legend>
+                    <div class="col-md-6">
+                        <label class="control-label">Mensal (padrão)</label>
+                        <input class="taxa form-control" type="number" placeholder="Taxa de juros">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Ou taxa anual</label>
+                        <input class="taxaAno form-control" type="number" placeholder="Senão, vazio">
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <legend>Taxa</legend>
-                <div class="col-md-6">
-                    <label class="control-label">Mensal (padrão)</label>
-                    <input class="taxa form-control" type="number" placeholder="Taxa de juros">
+                <hr>
+                <div class="row">
+                    <legend>Prazo</legend>
+                    <div class="col-md-4">
+                        <label class="control-label">Em meses (padrão)</label>
+                        <input class="prazo form-control" type="number" placeholder="Meses">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Ou em anos</label>
+                        <input class="prazoAno dataput form-control" type="number" placeholder="Senão, vazio">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Ou até data específica</label>
+                        <input class="ateVencer dataput form-control" type="date" placeholder="Data do Vencimento">
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="control-label">Ou taxa anual</label>
-                    <input class="taxaAno form-control" type="number" placeholder="Senão, vazio">
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" class="btn btn-primary btn-block btn-lg simulaUm" value="Cálcular">
+                    </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <legend>Prazo</legend>
-                <div class="col-md-4">
-                    <label class="control-label">Em meses (padrão)</label>
-                    <input class="prazo form-control" type="number" placeholder="Meses">
-                </div>
-                <div class="col-md-4">
-                    <label>Ou em anos</label>
-                    <input class="prazoAno dataput form-control" type="number" placeholder="Senão, vazio">
-                </div>
-                <div class="col-md-4">
-                    <label>Ou até data específica</label>
-                    <input class="ateVencer dataput form-control" type="date" placeholder="Data do Vencimento">
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <a class="btn btn-primary btn-lg simulaUm" href="#" role="button">Cálculo</a>
-                </div>
-            </div>
+            </form>
             <hr>
             <div class="row resultados">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-dark">
+                    <table class="table table-bordered table-hover table-striped table-dark">
                         <thead>
                             <tr>
                                 <th>Aplicação inicial</th>
@@ -84,7 +87,7 @@
                     <label class="control-label">Dados parciais e acumulados:</label>
                     <p></p>
                     <div id="printfinal" class="table-responsive">
-                        <table class="table table-bordered table-hover table-dark">
+                        <table class="table table-bordered table-hover table-striped table-dark">
                             <thead>
                                 <tr>
                                     <th>Mês</th>
@@ -92,14 +95,14 @@
                                     <th>Juros no mês</th>
                                     <th>Juros total</th>
                                     <th>Acumulado</th>
-                                </tr>                                    
+                                </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
                     </div>
                 </section>
             </div>
-        </main>
+        </section>
         <!-- <ul class="tabs" data-tab="">
             <li class="tab-title active"><a tabindex="0" href="#panel2-1">Gráfico</a></li>
             <li class="tab-title"><a tabindex="0" href="#panel2-2">Dados</a></li>
@@ -115,6 +118,8 @@
             </section> -->
         <!-- <div id="cresce-chart" class="oscharts" style="height: 400px;"></div> -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>
