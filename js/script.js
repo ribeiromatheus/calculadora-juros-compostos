@@ -113,3 +113,177 @@ $(document).on('change', '.dataput', function () {
         //     }
         // });
     });
+
+Calculator = {};
+Calculator.Initialize = function () {
+    Calculator.AddDimensionsWall();
+    Calculator.AddDimensionsDoorWindow("Window", "janela");
+    Calculator.AddDimensionsDoorWindow("Door", "porta")
+};
+Calculator.DimensionsWallIndex = 99999;
+Calculator.DimensionsDoorWindowIndex = 99999;
+Calculator.Result = "";
+Calculator.ShowFirstStep = function () {
+    $("#divCalculatorFirstStep").show();
+    $("#divCalculatorSecondStep").hide()
+};
+Calculator.ShowSecondStep = function () {
+    $("#divCalculatorFirstStep").hide();
+    $("#divCalculatorSecondStep").show();
+    $("button.go-to-top").click()
+};
+Calculator.Change = function () {
+    $("#divCalculatorFirstStep").show();
+    $("#divCalculatorSecondStep").hide()
+};
+Calculator.Calculate = function () {
+    var s = [],
+        h = [],
+        c = 0,
+        l = $("input[name=surfaceType]").is(":checked"),
+        u, f, e, o, t;
+    if (l && (c = $("input[name=surfaceType]:checked").val()), u = $("#dropTypePaint").val(), f = $("#dropHands").val(), !l) {
+        MessageBox.Show("Erro!", 'Selecione uma opção para o campo "Tipo de Superfície"!');
+        return
+    }
+    if (String.IsNullOrEmpty(u) || u == "-1") {
+        MessageBox.Show("Erro!", 'Selecione uma opção para o campo "Tipo de produto"!');
+        return
+    }
+    if (e = $("input[name=hdnDimensionsWallIndex]"), e.length == 0) {
+        MessageBox.Show("Erro!", 'Preencha uma opção para o campo "Dimensões a ser pintada"!');
+        return
+    }
+    for (t = 0; t < e.length; t++) {
+        var n = e[t].value,
+            i = parseFloat($("#txtHeight_" + n).val().replace(",", ".")),
+            r = parseFloat($("#txtWidth_" + n).val().replace(",", "."));
+        if (!Validator.IsDecimal($("#txtHeight_" + n).val()) || i == 0) {
+            MessageBox.Show("Erro!", 'Valor informado para o campo "Altura da dimensão a ser pintada" inválido!');
+            return
+        }
+        if (!Validator.IsDecimal($("#txtWidth_" + n).val()) || r == 0) {
+            MessageBox.Show("Erro!", 'Valor informado para o campo "Largura da dimensão a ser pintada" inválido!');
+            return
+        }
+        s.push({
+            Height: i,
+            Width: r
+        })
+    }
+    for (o = $("input[name=hdnDimensionsDoorWindowIndex]"), t = 0; t < o.length; t++) {
+        var n = o[t].value,
+            i = parseFloat($("#txtHeightDoorWindow_" + n).val().replace(",", ".")),
+            r = parseFloat($("#txtWidthDoorWindow_" + n).val().replace(",", "."));
+        if (i != 0 && Validator.IsDecimal($("#txtHeightDoorWindow_" + n).val()) || r != 0 && Validator.IsDecimal($("#txtWidthDoorWindow_" + n).val())) {
+            if (!Validator.IsDecimal($("#txtHeightDoorWindow_" + n).val()) || i == 0) {
+                MessageBox.Show("Erro!", 'Valor informado para o campo "Altura da Porta / Janela" inválido!');
+                return
+            }
+            if (!Validator.IsDecimal($("#txtWidthDoorWindow_" + n).val()) || r == 0) {
+                MessageBox.Show("Erro!", 'Valor informado para o campo "Largura da Porta / Janela" inválido!');
+                return
+            }
+            h.push({
+                Height: i,
+                Width: r
+            })
+        }
+    }
+    if (String.IsNullOrEmpty(f) || f == "-1") {
+        MessageBox.Show("Erro!", 'Selecione uma opção para o campo "Número de demão"!');
+        return
+    }
+    Ajax.Callback.Calculate(c, u, f, s, h, Calculator.Calculate_End)
+};
+Calculator.Calculate_End = function (n) {
+    n = n || {
+        Surface: "",
+        TypePaint: "",
+        TotalMetersSurface: "",
+        TotalMetersEnd: "",
+        TotalMetersDecrease: "",
+        Quantity: "",
+        QuantityLargeCan: "",
+        QuantityMediumCan: "",
+        QuantitySmallCan: ""
+    };
+    Calculator.Result = n;
+    $("#spanSurface").html(n.Surface);
+    $("#spanProduct").html(n.TypePaint);
+    $("#spanTotalMeters").html(String.Format("{0} m²", n.TotalMetersSurface.ToString("0.##")));
+    $("#spanMetersEnd").html(String.Format("{0} m²", n.TotalMetersEnd.ToString("0.##")));
+    $("#spanDimensionsDoorWindow").html(String.Format("{0} m²", n.TotalMetersDecrease.ToString("0.##")));
+    $("#spanQuantity").html(String.Format("{0} litros", n.Quantity.ToString("0.##")));
+    $("#spanQuantityPackage").html(String.Format("{0} lata(s)", n.QuantityLargeCan));
+    Calculator.ShowSecondStep();
+    Calculator.Result.QuantitySmallCan == 1 ? Calculator.ChangeTypePaintCan(3, "small-can") : Calculator.Result.QuantityMediumCan == 1 ? Calculator.ChangeTypePaintCan(2, "medium-can") : Calculator.ChangeTypePaintCan(1, "large-can")
+};
+Calculator.ChangeTypePaintCan = function (n, t) {
+    var i = 0;
+    i = n == 1 ? Calculator.Result.QuantityLargeCan : n == 2 ? Calculator.Result.QuantityMediumCan : Calculator.Result.QuantitySmallCan;
+    $("#spanQuantityPackage").html(String.Format("{0} lata(s)", i));
+    $("#ulTypePaintCan li").removeClass("active");
+    $("#" + t).addClass("active")
+};
+Calculator.Recalculate = function () {
+    $("input:text").val("");
+    $("input[type=radio]").removeAttr("checked");
+    $("#dropTypePaint").html("");
+    $("#dropHands").val("-1");
+    Calculator.ShowFirstStep()
+};
+Calculator.GetTypePaints = function (n) {
+    $("#dropTypePaint").empty();
+    $("#dropTypePaint").prop("disabled", !1);
+    Ajax.Callback.GetTypePaints(n, Calculator.GetTypePaints_End)
+};
+Calculator.GetTypePaints_End = function (n) {
+    var i, t;
+    for (n = n || {
+        TypePaints: []
+    }, i = "", n.TypePaints.length > 1 && (i += '<option value="-1">Selecione o produto<\/option>'), t = 0; t < n.TypePaints.length; t++) i += String.Format('<option value="{0}">{1}<\/option>', n.TypePaints[t].Id, n.TypePaints[t].Name);
+    $("#dropTypePaint").append(i);
+    n.TypePaints.length <= 1 && $("#dropTypePaint").prop("disabled", "disabled")
+};
+Calculator.AddDimensionsWall = function () {
+    Calculator.DimensionsWallIndex++;
+    var n = {
+        Index: Calculator.DimensionsWallIndex
+    },
+        t = $("#dimensions-wall-template").html(),
+        i = Handlebars.compile(t),
+        r = n,
+        u = i(r);
+    $("#divDimensionsWall .content").append(u)
+};
+Calculator.AddDimensionsDoorWindow = function (n, t) {
+    Calculator.DimensionsDoorWindowIndex++;
+    var i = {
+        Index: Calculator.DimensionsDoorWindowIndex,
+        Type: n,
+        FriendlyType: t
+    },
+        r = $("#dimensions-door-window-template").html(),
+        u = Handlebars.compile(r),
+        f = i,
+        e = u(f);
+    $("#divDimensionsDoorWindow ." + n).append(e)
+};
+Calculator.RemoveDimensionsWall = function (n) {
+    if ($("input[name=hdnDimensionsWallIndex]").length <= 1) {
+        MessageBox.Show("Erro!", "Deve possuir ao menos uma parede");
+        return
+    }
+    $("#hdnDimensionsWallIndex_" + n).parent().remove()
+};
+Calculator.RemoveDimensionsDoorWindow = function (n, t, i) {
+    if ($("input[name=hdnDimensionsDoorWindowIndex][data-type=" + t + "]").length <= 1) {
+        MessageBox.Show("Erro!", "Deve possuir ao menos uma " + i);
+        return
+    }
+    $("#hdnDimensionsDoorWindowIndex_" + n).parent().remove()
+};
+$(document).ready(function () {
+    Calculator.Initialize()
+})
